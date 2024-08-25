@@ -37,6 +37,10 @@ Develop a data platform that allows users to create and manage data pipelines fr
 
 ## 🎯 Features Implemented
 
+### Links:
+- Feature Highlights Screenshots: https://docs.google.com/document/d/16Y1MS8hU970MoqFUUyv9RtyA7x7BII-9ZYrhREnLqVk/edit?usp=sharing
+- Video Demo: https://drive.google.com/file/d/1_yUitqn8evqiZOFTt3MjLQerO8IrobB7/view
+
 ### Frontend:
 
 - Dashboard with pipeline overview.
@@ -51,6 +55,7 @@ Develop a data platform that allows users to create and manage data pipelines fr
 - RESTful API for pipeline operations.
 - WebSockets for real-time pipeline status updates.
 - Offloaded processing using BullMQ, using Redis as a broker, for extract and load operations.
+- Chunked logs for better performance.
 - Caching using Redis for faster data retrieval.
 - Used Meltano / Singer.io for ELT operations.
 
