@@ -38,6 +38,7 @@ Develop a data platform that allows users to create and manage data pipelines fr
 ## 🎯 Features Implemented
 
 ### Links:
+
 - Feature Highlights Screenshots: https://docs.google.com/document/d/16Y1MS8hU970MoqFUUyv9RtyA7x7BII-9ZYrhREnLqVk/edit?usp=sharing
 - Video Demo: https://drive.google.com/file/d/1_yUitqn8evqiZOFTt3MjLQerO8IrobB7/view
 
@@ -103,10 +104,7 @@ Develop a data platform that allows users to create and manage data pipelines fr
 
 4. Access the web interface at `http://localhost:3000`
 
-
-
 Note: Initial SQL dump scripts are present in the `init/sql` directory. You can use these scripts to create the required databases tables, or simply use the current setup, and go through the above steps to start the application.
-
 
 ## 📈 Future Improvements
 

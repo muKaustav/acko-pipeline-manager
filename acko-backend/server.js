@@ -4,7 +4,6 @@ const http = require('http')
 const WebSocket = require('ws')
 const cors = require('cors')
 const compression = require('compression')
-const rateLimit = require('express-rate-limit')
 const morgan = require('morgan')
 const { Worker } = require('bullmq')
 
@@ -26,12 +25,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(compression())
 app.use(morgan('combined'))
-
-// const limiter = rateLimit({
-//     windowMs: 15 * 60 * 1000,
-//     max: 100,
-// })
-// app.use(limiter)
 
 const wss = new WebSocket.Server({
     server,
@@ -81,7 +74,6 @@ const startServer = async () => {
         await connectMongoDB()
         console.log('MongoDB connected successfully')
 
-        // Connect to Redis if not already connected
         console.log('Redis cache status:', redisClient.status)
 
         if (redisClient.status !== 'connect' && redisClient.status !== 'connecting' && redisClient.status !== 'ready') {
@@ -89,7 +81,6 @@ const startServer = async () => {
         }
         console.log('Redis cache connected successfully')
 
-        // Set up WebSocket message worker
         const wsWorker = new Worker('websocket-messages', async (job) => {
             if (job.name === 'broadcast') {
                 broadcast(job.data)
@@ -98,11 +89,9 @@ const startServer = async () => {
 
         console.log('WebSocket message worker started')
 
-        // Start the queue processor
         require('./controllers/queueProcessor')
         console.log('Queue processor started')
 
-        // Set up BullMQ event listeners
         pipelineQueue.on('completed', async (job, result) => {
             await wsQueue.add('broadcast', {
                 type: 'pipelineUpdate',
@@ -145,7 +134,6 @@ const startServer = async () => {
 
 process.on('unhandledRejection', (reason, promise) => {
     console.error('Unhandled Rejection at:', promise, 'reason:', reason)
-    // Application specific logging, throwing an error, or other logic here
 })
 
 startServer()

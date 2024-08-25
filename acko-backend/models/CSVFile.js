@@ -1,5 +1,10 @@
 const mongoose = require('mongoose')
 
+/**
+     * @desc: CSVFile Schema
+     * @type: Schema
+     * @return: CSVFile Model
+ */
 const CSVFile = new mongoose.Schema({
     pipelineId: {
         type: mongoose.Schema.Types.ObjectId,

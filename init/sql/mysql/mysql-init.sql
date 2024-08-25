@@ -1,4 +1,3 @@
--- MySQL dump script (save as /docker-entrypoint-initdb.d/mysql_init.sql)
 USE acko0;
 
 -- Create policy table

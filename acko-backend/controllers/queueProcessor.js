@@ -206,8 +206,6 @@ const worker = new Worker('pipeline-execution', async (job) => {
             result: responseData
         })
 
-
-        // Invalidate cache
         await invalidateCache(pipeline._id)
 
         return responseData
@@ -231,13 +229,11 @@ const worker = new Worker('pipeline-execution', async (job) => {
         })
 
 
-        // Invalidate cache
         await invalidateCache(pipeline._id)
 
         throw err
 
     } finally {
-        // Cleanup operations
         try {
             console.log('Starting cleanup operations')
 

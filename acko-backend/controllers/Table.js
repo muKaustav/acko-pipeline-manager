@@ -47,7 +47,7 @@ const getPgTables = async (req, res) => {
     try {
         let tables = await getOrSetCache('pg_tables', async () => {
             return await getTableNames(pgInstance)
-        }, 3600) // Cache for 1 hour
+        }, 3600)
         return new SuccessResponse('Fetched PostgreSQL tables successfully', { tables }, 200).send(res)
     } catch (error) {
         console.error('Error fetching PostgreSQL tables:', error)
@@ -59,7 +59,7 @@ const getMysqlTables = async (req, res) => {
     try {
         const tables = await getOrSetCache('mysql_tables', async () => {
             return await getTableNames(mysqlInstance)
-        }, 3600) // Cache for 1 hour
+        }, 3600)
         return new SuccessResponse('Fetched MySQL tables successfully', { tables }, 200).send(res)
     } catch (error) {
         console.error('Error fetching MySQL tables:', error)

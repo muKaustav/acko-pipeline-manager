@@ -43,7 +43,7 @@ const PipelineList = ({ pipelines, onPipelineUpdate }) => {
 				if (!response.ok) throw new Error('Failed to delete pipeline')
 
 				setSuccessMessage(`Pipeline ${pipelineId} deleted successfully`)
-				onPipelineUpdate() // We still call this for deletions
+				onPipelineUpdate() 
 			} catch (err) {
 				setError(`Error deleting pipeline: ${err.message}`)
 			}

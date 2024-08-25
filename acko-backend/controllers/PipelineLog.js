@@ -14,7 +14,7 @@ const getLogsForPipeline = async (req, res) => {
 
         let logs = await getOrSetCache(`pipeline_logs_${pipelineId}`, async () => {
             return await PipelineLog.find({ pipeline: pipelineId }).sort({ timestamp: -1 })
-        }, 300) // Cache for 5 minutes
+        }, 300) 
 
         return new SuccessResponse('Logs fetched successfully', logs, 200).send(res)
     } catch (err) {
@@ -33,7 +33,7 @@ const getLog = async (req, res) => {
 
         let log = await getOrSetCache(`log_${logId}`, async () => {
             return await PipelineLog.findById(logId)
-        }, 300) // Cache for 5 minutes
+        }, 300) 
 
         if (!log) {
             return new ErrorResponse('Log not found', null, 404).send(res)
@@ -62,7 +62,6 @@ const deleteLog = async (req, res) => {
 
         await Pipeline.findByIdAndUpdate(log.pipeline, { $pull: { logs: logId } })
 
-        // Invalidate caches
         await invalidateCache(`log_${logId}`)
         await invalidateCache(`pipeline_logs_${log.pipeline}`)
 
@@ -83,7 +82,7 @@ const getLogsByLevel = async (req, res) => {
 
         let logs = await getOrSetCache(`logs_by_level_${level}`, async () => {
             return await PipelineLog.find({ level }).sort({ timestamp: -1 })
-        }, 300) // Cache for 5 minutes
+        }, 300) 
 
         return new SuccessResponse('Logs fetched successfully', logs, 200).send(res)
     } catch (err) {
@@ -97,7 +96,7 @@ const getRecentLogs = async (req, res) => {
         let logs = await getOrSetCache('recent_logs', async () => {
             let oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000)
             return await PipelineLog.find({ timestamp: { $gte: oneDayAgo } }).sort({ timestamp: -1 })
-        }, 60) // Cache for 1 minute
+        }, 60) 
 
         return new SuccessResponse('Recent logs fetched successfully', logs, 200).send(res)
     } catch (err) {
