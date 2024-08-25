@@ -9,9 +9,7 @@ const crypto = require('crypto')
 
 let getPipelines = async (req, res) => {
     try {
-        let pipelines = await getOrSetCache('all_pipelines', async () => {
-            return await Pipeline.find()
-        })
+        let pipelines = await Pipeline.find()
         return new SuccessResponse('Pipelines fetched', pipelines, 200).send(res)
     } catch (err) {
         console.error('Error fetching pipelines:', err)

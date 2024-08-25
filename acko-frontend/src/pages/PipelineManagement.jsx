@@ -274,6 +274,8 @@ const PipelineManagement = () => {
 				return 'text-red-500'
 			case 'running':
 				return 'text-yellow-500'
+			case 'queued':
+				return 'text-red-500'
 			default:
 				return 'text-blue-500'
 		}
@@ -288,6 +290,8 @@ const PipelineManagement = () => {
 				return <MdError className="text-red-500" />
 			case 'running':
 				return <MdAccessTime className="text-yellow-500 animate-spin" />
+			case 'queued':
+				return <MdAccessTime className="text-red-500 animate-spin" />
 			default:
 				return <MdCheckCircleOutline className="text-blue-500" />
 		}
