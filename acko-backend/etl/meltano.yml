@@ -1,0 +1,55 @@
+version: 1
+default_environment: dev
+project_id: df9096f2-1b1c-43a2-8a70-ddeafcc4c69e
+environments:
+- name: dev
+- name: staging
+- name: prod
+plugins:
+  extractors:
+  - name: tap-mysql
+    variant: transferwise
+    pip_url: pipelinewise-tap-mysql
+    config:
+      host: $MYSQL_HOST
+      port: $MYSQL_PORT
+      user: root
+      password: root
+      database: $MYSQL_DATABASE
+  - name: tap-postgres
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-postgres.git
+    config:
+      host: $PG_HOST
+      port: $PG_PORT
+      user: $PG_USER
+      password: $PG_PASSWORD
+      database: $PG_DATABASE
+      filter_schemas:
+      - public
+  loaders:
+  - name: target-mysql
+    variant: thkwag
+    pip_url: thk-target-mysql
+    config:
+      host: $MYSQL_HOST
+      port: $MYSQL_PORT
+      user: root
+      password: root
+      database: $MYSQL_DATABASE
+      max_varchar_size: 255
+  - name: target-postgres
+    variant: meltanolabs
+    pip_url: meltanolabs-target-postgres
+    config:
+      host: $PG_HOST
+      port: $PG_PORT
+      user: $PG_USER
+      password: $PG_PASSWORD
+      database: $PG_DATABASE
+  - name: target-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/target-csv.git
+    config:
+      output_path: ./output
+      file_naming_scheme: '{stream_name}-{datestamp}-{timestamp}.csv'

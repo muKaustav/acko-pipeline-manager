@@ -1,0 +1,30 @@
+# Node modules
+node_modules
+
+# Logs
+npm-debug.log
+yarn-error.log
+
+# Environment files
+.env
+
+# Docker-specific files
+Dockerfile
+.dockerignore
+
+# Miscellaneous
+*.md
+*.git
+*.gitignore
+*.DS_Store
+*.npm
+*.yarn
+
+# Build artifacts
+dist
+build
+out
+
+# Temporary files
+tmp
+.cache
