@@ -18,6 +18,22 @@ Develop a data platform that allows users to create and manage data pipelines fr
 - Integration with a real database for source or destination
 - Using open-source pipeline tools like singer.io for ELT
 
+## Design Assumptions & Limitations
+### Assumptions:
+- Have assumed the application user is using MySQL or PostgreSQL as source or destination databases.
+- Have assumed there is no processing at the transformation level. (EL)
+- Have assumed EL processing is at Database level.
+- Have assumed EL processing is done using Meltano / Singer.io.
+
+### Limitations:
+- Reliance on Meltano / Singer.io.
+- Single Container Setup for all the services, hence single points of failure and scalability issues.
+- No user authentication or role-based access control.
+- Currently only one pipeline can be processed at a time, which can be increased through the configuration, taking into account the system resources.
+- Vite can be used over Create React App for better performance.
+
+
+
 ## 🎯 Features Implemented
 
 ### Frontend:
