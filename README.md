@@ -18,7 +18,7 @@ Develop a data platform that allows users to create and manage data pipelines fr
 - Integration with a real database for source or destination
 - Using open-source pipeline tools like singer.io for ELT
 
-## Design Assumptions & Limitations
+## 💡 Design Assumptions & Limitations
 ### Assumptions:
 - Have assumed the application user is using MySQL or PostgreSQL as source or destination databases.
 - Have assumed there is no processing at the transformation level. (EL)
