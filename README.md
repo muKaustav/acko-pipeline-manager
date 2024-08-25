@@ -120,7 +120,7 @@ Note: Initial SQL dump scripts are present in the `init/sql` directory. You can 
 
 ## 👨‍💻 Author
 
-Your Name
+Kaustav Mukhopadhyay
 
 - GitHub: [@muKaustav](https://github.com/muKaustav)
 - LinkedIn: [kaustavmukhopadhyay](https://www.linkedin.com/in/kaustavmukhopadhyay/)
