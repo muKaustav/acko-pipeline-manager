@@ -49,7 +49,7 @@ Develop a data platform that allows users to create and manage data pipelines fr
 ## 📝 System Design
 
 <p align = center>
-    <img alt="Project Logo" src="" target="_blank" />
+    <img alt="Project Logo" src="https://raw.githubusercontent.com/muKaustav/acko-pipeline-manager/main/assets/arch.png" target="_blank" />
 </p>
 
 ## 🚀 Getting Started
@@ -84,10 +84,10 @@ Develop a data platform that allows users to create and manage data pipelines fr
 ## 📈 Future Improvements
 
 1. Implement multiple containers for better load distribution.
-3. Implement load balancing using Nginx to distribute traffic across multiple servers.
-5. Utilize managed load balancing solutions like AWS ELB for scalability.
-2. Integrate Apache Airflow for advanced scheduling capabilities.
-4. Set up a distributed cache for improved performance.
+2. Implement load balancing using Nginx to distribute traffic across multiple servers.
+3. Utilize managed load balancing solutions like AWS ELB for scalability.
+4. Integrate Apache Airflow for advanced scheduling capabilities.
+5. Set up a distributed cache for improved performance.
 6. Replace Create React App with a more optimized build tool. (e.g., Vite or Next.js)
 7. Implement user authentication and role-based access control.
 
