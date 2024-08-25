@@ -26,7 +26,7 @@ const PipelineManagement = () => {
 	const [error, setError] = useState(null)
 	const [successMessage, setSuccessMessage] = useState(null)
 	const [fileContent, setFileContent] = useState(null)
-	const { pipelineUpdates } = useWebSocket()
+	const { pipelineUpdates, logUpdates } = useWebSocket()
 
 	useEffect(() => {
 		if (error || successMessage) {
@@ -142,9 +142,15 @@ const PipelineManagement = () => {
 					lastRunAt: update.lastRunAt || prevPipeline.lastRunAt,
 				}
 			})
-			fetchLogs()
+			fetchFiles()
 		}
-	}, [pipelineUpdates, id, fetchLogs])
+	}, [pipelineUpdates, id, fetchFiles])
+
+	useEffect(() => {
+		if (logUpdates[id]) {
+			setLogs((prevLogs) => [...logUpdates[id], ...prevLogs])
+		}
+	}, [logUpdates, id])
 
 	const handleSubmit = async (formData) => {
 		setError(null)
@@ -226,8 +232,6 @@ const PipelineManagement = () => {
 			const jsonData = await response.json()
 
 			if (jsonData.success && jsonData.data) {
-				// setPipeline(jsonData.data)
-				fetchLogs()
 				setSuccessMessage('Pipeline execution started')
 			} else {
 				throw new Error('Failed to run pipeline')
@@ -286,6 +290,19 @@ const PipelineManagement = () => {
 				return <MdAccessTime className="text-yellow-500 animate-spin" />
 			default:
 				return <MdCheckCircleOutline className="text-blue-500" />
+		}
+	}
+
+	const getLogLevelColor = (level) => {
+		switch (level.toLowerCase()) {
+			case 'info':
+				return 'text-blue-400'
+			case 'warning':
+				return 'text-yellow-400'
+			case 'error':
+				return 'text-red-400'
+			default:
+				return 'text-gray-400'
 		}
 	}
 
@@ -427,13 +444,31 @@ const PipelineManagement = () => {
 						</ActionButton>
 					</div>
 					<div className="bg-gray-900 p-3 rounded-lg h-40 overflow-y-auto text-sm">
-						{Array.isArray(logs) && logs.length > 0 ? (
+						{logs.length > 0 ? (
 							logs.slice(0, 5).map((log, index) => (
-								<div key={index} className="mb-1 text-gray-300">
-									<span className="text-gray-500">
-										{new Date(log.timestamp).toLocaleString()}
-									</span>{' '}
-									- {log.level.toUpperCase()}: {log.message}
+								<div
+									key={index}
+									className="mb-3 pb-2 border-b border-gray-700 last:border-b-0">
+									<div className="flex justify-between items-center mb-1">
+										<span className="text-gray-400">
+											{new Date(log.timestamp).toLocaleString()}
+										</span>
+										<span
+											className={`font-semibold ${getLogLevelColor(
+												log.level
+											)}`}>
+											{log.level.toUpperCase()}
+										</span>
+									</div>
+									<p className="text-white">{log.message}</p>
+									{log.details && (
+										<div className="mt-1 text-xs">
+											<p className="text-gray-400">Details:</p>
+											<pre className="text-gray-300 bg-gray-800 p-1 rounded mt-1 overflow-x-auto">
+												{JSON.stringify(log.details, null, 2)}
+											</pre>
+										</div>
+									)}
 								</div>
 							))
 						) : (
@@ -451,17 +486,33 @@ const PipelineManagement = () => {
 							{fileContent}
 						</pre>
 					</div>
-				) : Array.isArray(logs) && logs.length > 0 ? (
+				) : logs.length > 0 ? (
 					<div>
 						<h2 className="text-xl font-semibold mb-4 text-gray-200">
 							Full Logs
 						</h2>
 						{logs.map((log, index) => (
-							<div key={index} className="mb-2 text-gray-300">
-								<span className="text-gray-500">
-									{new Date(log.timestamp).toLocaleString()}
-								</span>{' '}
-								- {log.level.toUpperCase()}: {log.message}
+							<div
+								key={index}
+								className="mb-3 pb-2 border-b border-gray-700 last:border-b-0">
+								<div className="flex justify-between items-center mb-1">
+									<span className="text-gray-400">
+										{new Date(log.timestamp).toLocaleString()}
+									</span>
+									<span
+										className={`font-semibold ${getLogLevelColor(log.level)}`}>
+										{log.level.toUpperCase()}
+									</span>
+								</div>
+								<p className="text-white">{log.message}</p>
+								{log.details && (
+									<div className="mt-1 text-xs">
+										<p className="text-gray-400">Details:</p>
+										<pre className="text-gray-300 bg-gray-800 p-1 rounded mt-1 overflow-x-auto">
+											{log.details.content || null}
+										</pre>
+									</div>
+								)}
 							</div>
 						))}
 					</div>

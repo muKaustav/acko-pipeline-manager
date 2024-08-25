@@ -27,11 +27,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use(compression())
 app.use(morgan('combined'))
 
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
-})
-app.use(limiter)
+// const limiter = rateLimit({
+//     windowMs: 15 * 60 * 1000,
+//     max: 100,
+// })
+// app.use(limiter)
 
 const wss = new WebSocket.Server({
     server,

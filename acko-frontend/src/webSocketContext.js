@@ -4,6 +4,7 @@ const WebSocketContext = createContext(null)
 
 export const WebSocketProvider = ({ children }) => {
     const [pipelineUpdates, setPipelineUpdates] = useState({})
+    const [logUpdates, setLogUpdates] = useState({})
     const [isConnected, setIsConnected] = useState(false)
     const socketRef = useRef(null)
 
@@ -67,7 +68,7 @@ export const WebSocketProvider = ({ children }) => {
         }
     }, [])
 
-    const value = { sendMessage, pipelineUpdates, isConnected }
+    const value = { sendMessage, pipelineUpdates, logUpdates, isConnected }
 
     return (
         <WebSocketContext.Provider value={value}>

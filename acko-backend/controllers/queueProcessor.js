@@ -64,7 +64,8 @@ const createLog = async (pipelineId, level, message, details = {}) => {
         log: {
             level,
             message,
-            timestamp: log.createdAt
+            timestamp: log.createdAt,
+            details
         }
     })
 }
@@ -80,14 +81,15 @@ const logOutput = async (pipelineId, level, type, output, details = {}) => {
             pipelineId,
             level,
             `${type} chunk ${i + 1}/${numChunks}`,
-            { ...details, [type]: chunkContent }
+            { ...details, content: chunkContent }
         )
     }
 }
 
 const invalidateCache = async (pipelineId) => {
-    await redisClient.del(`pipeline:${pipelineId}`)
+    await redisClient.del(`pipeline_${pipelineId}`)
     await redisClient.del('all_pipelines')
+    await redisClient.del(`pipeline_logs_${pipelineId}`)
     console.log(`Cache invalidated for pipeline:${pipelineId} and all_pipelines`)
 }
 
@@ -117,7 +119,6 @@ const worker = new Worker('pipeline-execution', async (job) => {
             lastRunAt: pipeline.lastRunAt
         })
 
-
         await job.updateProgress(10)
 
         const tap = getTap(pipeline.sourceType)
@@ -146,8 +147,13 @@ const worker = new Worker('pipeline-execution', async (job) => {
             env: { ...process.env }
         })
 
-        await logOutput(pipeline._id, 'info', 'stdout', stdout, { runId })
-        await logOutput(pipeline._id, 'warning', 'stderr', stderr, { runId })
+        if (stdout) {
+            await logOutput(pipeline._id, 'info', 'stdout', stdout, { runId })
+        }
+
+        if (stderr) {
+            await logOutput(pipeline._id, 'warning', 'stderr', stderr, { runId })
+        }
 
         if (stderr.includes('Traceback') || stderr.includes('Error:') || stderr.includes('CRITICAL')) {
             throw new Error(stderr)
