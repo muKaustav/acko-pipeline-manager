@@ -97,7 +97,7 @@ const startServer = async () => {
                 type: 'pipelineUpdate',
                 pipelineId: job.data.pipelineId,
                 status: 'completed',
-                lastRunAt: jpb.data.lastRunAt,
+                lastRunAt: job.data.lastRunAt,
                 result,
             })
         })
@@ -107,7 +107,7 @@ const startServer = async () => {
                 type: 'pipelineUpdate',
                 pipelineId: job.data.pipelineId,
                 status: 'failed',
-                lastRunAt: jpb.data.lastRunAt,
+                lastRunAt: job.data.lastRunAt,
                 error: error.message,
             })
         })
@@ -117,7 +117,7 @@ const startServer = async () => {
                 type: 'pipelineUpdate',
                 pipelineId: job.data.pipelineId,
                 status: 'running',
-                lastRunAt: jpb.data.lastRunAt,
+                lastRunAt: job.data.lastRunAt,
                 progress,
             })
         })
