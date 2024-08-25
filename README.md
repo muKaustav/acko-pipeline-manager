@@ -6,17 +6,17 @@ Develop a data platform that allows users to create and manage data pipelines fr
 
 ### Requirements:
 
-- Dashboard displaying an overview of existing pipelines
-- Pipeline creation page
-- Pipeline management page
-- Backend API for pipeline operations
-- Pipeline processing logic for extract and load operations
+- Dashboard displaying an overview of existing pipelines.
+- Pipeline creation page.
+- Pipeline management page.
+- Backend API for pipeline operations.
+- Pipeline processing logic for extract and load operations.
 
 ### Bonus Points:
 
-- Real-time pipeline status updates using WebSockets
-- Integration with a real database for source or destination
-- Using open-source pipeline tools like singer.io for ELT
+- Real-time pipeline status updates using WebSockets.
+- Integration with a real database for source or destination.
+- Using open-source pipeline tools like singer.io for ELT.
 
 ## 💡 Design Assumptions & Limitations
 ### Assumptions:
@@ -38,20 +38,20 @@ Develop a data platform that allows users to create and manage data pipelines fr
 
 ### Frontend:
 
-- Dashboard with pipeline overview
-- Pipeline creation page
-- Pipeline management page
-- Search bar for quick pipeline lookup
+- Dashboard with pipeline overview.
+- Pipeline creation page.
+- Pipeline management page.
+- Search bar for quick pipeline lookup.
 
 ### Backend:
 
-- MySQL and PostgreSQL support for source and destination
-- MongoDB for pipeline metadata storage
-- RESTful API for pipeline operations
-- WebSockets for real-time pipeline status updates
-- Offloaded processing using BullMQ, using Redis as a broker, for extract and load operations
-- Caching using Redis for faster data retrieval
-- Used Meltano / Singer.io for ELT operations
+- MySQL and PostgreSQL support for source and destination.
+- MongoDB for pipeline metadata storage.
+- RESTful API for pipeline operations.
+- WebSockets for real-time pipeline status updates.
+- Offloaded processing using BullMQ, using Redis as a broker, for extract and load operations.
+- Caching using Redis for faster data retrieval.
+- Used Meltano / Singer.io for ELT operations.
 
 ## 🌐 Tech Stack
 
